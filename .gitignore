@@ -1,0 +1,32 @@
+# =========================
+# Compiled Source Files
+# =========================
+# Java
+*.class
+*.jar
+*.war
+
+# C / C++
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+
+# =========================
+# IDEs and Editors
+# =========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# OS Generated Files
+# =========================
+Thumbs.db
+ehthumbs.db
+.DS_Store
