@@ -6,46 +6,40 @@ public class Main {
   static FastReader in = new FastReader();
   static PrintWriter out = new PrintWriter(System.out);
 
-  @SuppressWarnings("unchecked")
+
+  private static int[] dp;
   public static void main(String[] args) throws Exception {
     StringBuilder res=new StringBuilder();
-    int n=in.nextInt();
-    int m=in.nextInt();
-    List<Integer>[] edges=new ArrayList[n+1];
-    for(int i=0; i<=n; i++) edges[i]=new ArrayList<>();
-    for(int i=0; i<m; i++){
-      int a=in.nextInt(), b=in.nextInt();
-      edges[a].add(b);
-      edges[b].add(a);
-    }
-    int[] team=new int[n+1];
     
-    for(int i=1;i<=n;i++){
-      if(team[i]!=0) continue;//visited
-      Queue<Integer> q=new LinkedList<>();
-      q.offer(i);
-      team[i]=1;//team 1
-      
-      while(!q.isEmpty()){
-        int u=q.poll();
-        for(int v:edges[u]){
-          if(team[v]==0){
-            team[v]=3-team[u];
-            q.offer(v);
-          }else if(team[v]==team[u]){
-            res.append("IMPOSSIBLE\n");
-            System.out.println(res);
-            return;
-          }
+    int n=in.nextInt();
+    int x=in.nextInt();
+    dp=new int[x+1];
+    
+    int[] prices=new int[n];
+    for(int i=0; i<n; i++) prices[i]=in.nextInt();
+    int[] pages=new int[n];
+    for(int i=0; i<n; i++) pages[i]=in.nextInt();
+
+    for(int j=0;j<n;j++){
+      for(int i=x;i>=prices[j];i--){
+        if(prices[j]<=i){
+          dp[i]=Math.max(dp[i], dp[i-prices[j]]+pages[j]);
         }
       }
     }
-    for(int i=1; i<=n; i++){
-      res.append(team[i]+" ");
-    }
-    res.append("\n");
+    res.append(dp[x]);
     System.out.println(res);
   }
+
+  // private static int solve(int[] pages, int[] prices, int x, int i) {
+  //   int n=pages.length;
+  //   if(i >= n || x < 0) return 0;
+  //   if(dp[x][i] != -1) return dp[x][i];
+  //   int include=0;
+  //   if(x >= prices[i]) include=pages[i]+solve(pages, prices, x-prices[i], i+1);
+  //   int exclude=solve(pages, prices, x, i+1);
+  //   return dp[x][i]=Math.max(include, exclude);
+  // }
 
     // Fast I/O template
     static class FastReader {
