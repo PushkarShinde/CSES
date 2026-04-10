@@ -7,8 +7,7 @@ public class Main {
   static PrintWriter out = new PrintWriter(System.out);
 
   private static List<Integer>[] adj;
-  private static int[] up, down, ans;
-  private static int[] best1, best2, bestChild;
+  private static long[] up, down, ans, size;
   private static int n;
 
   @SuppressWarnings("unchecked")
@@ -26,13 +25,10 @@ public class Main {
       adj[v].add(u);
     }
     
-    down=new int[n+1];
-    up=new int[n+1];
-    ans=new int[n+1];
-    best1=new int[n+1];
-    best2=new int[n+1];
-    bestChild=new int[n+1];
-    Arrays.fill(bestChild, -1);
+    down=new long[n+1];
+    size=new long[n+1];
+    up=new long[n+1];
+    ans=new long[n+1];
 
     dfs1(1, 0);//computing down and size
     dfs2(1, 0);//computing up and ans
@@ -47,64 +43,25 @@ public class Main {
   //down[u] = sum of distances from u to all nodes in its subtree
   //size[u] = number of nodes in the subtree rooted at u
   private static void dfs1(int u, int p){
-    Deque<int[]> stack=new ArrayDeque<>();
-    // phase 0 = first visit (push children)
-    // phase 1 = post-process (children done)
-    stack.push(new int[]{u, p, 0});//node, parent, phase
-    //parent array to keep track of parents during iterative DFS
-    int[] parent=new int[n+1];
-    parent[u]=p;
-
-    while(!stack.isEmpty()){
-      int[] frame=stack.peek();
-      int cur=frame[0], par=frame[1], phase=frame[2];
-      if(phase==0){
-        frame[2]=1;//mark for post-process
-        // phase 0: first visit
-        for(int v: adj[cur]){
-          if(v==par) continue;
-          parent[v]=cur;
-          stack.push(new int[]{v, cur, 0});
-        }
-      } else {
-        stack.pop();
-        // phase 1: post-process: u's children are done, compute down[u] and size[u]
-        for(int v: adj[cur]){
-          if(v==par) continue;
-          int candidate=down[v]+1;
-          if(candidate>best1[cur]){
-            best2[cur]=best1[cur];
-            best1[cur]=candidate;
-            bestChild[cur]=v;
-          } else if(candidate>best2[cur]){
-            best2[cur]=candidate;
-          }
-        }
-        down[cur]=best1[cur];
-      }
+    size[u]=1;
+    down[u]=0;
+    for(int v: adj[u]){
+      if(v==p) continue;
+      dfs1(v, u);
+      size[u]+=size[v];
+      down[u]+=down[v]+size[v];
     }
   }
 
   //up[u] = sum of distances from u to all nodes outside its subtree
   //ans[u] = total distance from u to all other nodes
   private static void dfs2(int u, int p){
-    Deque<int[]> stack=new ArrayDeque<>();
-    stack.push(new int[]{u, p});//node, parent
-    while(!stack.isEmpty()){
-      int[] frame=stack.pop();
-      int cur=frame[0], par=frame[1];
-      ans[cur]=Math.max(down[cur], up[cur]);
-
-      for(int v: adj[cur]){
-        if(v==par) continue;
-        //up[v] = up[u] + (down[u] - (down[v]+1)) + 1
-        int bestOtherChild=bestChild[cur]==v? best2[cur] : best1[cur];
-        // up[v]: go to u (cost 1), then either go up from u or go
-        // into u's best other subtree
-        up[v]=1+Math.max(up[cur], bestOtherChild);
-
-        stack.push(new int[]{v, cur});
-      }
+    ans[u]=down[u]+up[u];
+    for(int v: adj[u]){
+      if(v==p) continue;
+      //up[v] = up[u] + (down[u] - (down[v]+size[v])) + (n-size[v])
+      up[v]=up[u]+(down[u]-(down[v]+size[v]))+(n-size[v]);
+      dfs2(v, u);
     }
   }
 
