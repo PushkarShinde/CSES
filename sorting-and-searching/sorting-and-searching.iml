@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Apaprtments" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CollectingNumbers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CollectingNumbersII" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ConcertTickets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DistinctNumbers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DistinctValueSubarrays" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DistinctValueSubsequences" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/FerrisWheel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/JosephusProblem-I" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/JosephusProblem-II" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaximumSubarraySum" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MissingCoinSum" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MovieFestival" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Playlist" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/RestaurantCustomers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/StickLength" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SumTwoValues" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Towers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TrafficLights" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
