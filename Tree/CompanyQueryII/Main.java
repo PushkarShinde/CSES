@@ -6,47 +6,21 @@ public class Main {
   static FastReader in = new FastReader();
   static PrintWriter out = new PrintWriter(System.out);
 
-  @SuppressWarnings("Unchecked")
   public static void main(String[] args) throws Exception {
-    int n=in.nextInt(); 
-    int q=in.nextInt(); 
+    int t=in.nextInt(); 
     StringBuilder res=new StringBuilder();
-
-    int log=0;
-    while((1<<log)<=n) log++;
-
-    int[][] up=new int[n+1][log];
-    up[1][0]=0;//final boss
-
-    for(int i=2;i<=n;i++){
-      up[i][0]=in.nextInt();//immediate boss of i
+    while (t-- > 0) {
+      solve(res);
     }
-
-    for(int j=1;j<log;j++){
-      //har node i ka 2^j th ancestor nikalna h
-      for(int i=1;i<=n;i++){
-        int halfway=up[i][j-1];
-        up[i][j]=(halfway==0)?0:up[halfway][j-1];
-      }
-    }
-    while(q-->0){//O(q)
-      int u=in.nextInt();
-      int k=in.nextInt();
-      boolean found=true;
-      
-      for(int j=0;j<log;j++){//O(logn)
-        if((k&(1<<j))!=0){
-          u=up[u][j];//2^j th ancestor of u
-          if(u==0){
-            found=false;
-            break;
-          }
-        }                                     
-      }
-      res.append(found?u:-1).append('\n');
-    } 
     System.out.println(res);
     out.flush();
+  }
+
+  static void solve(StringBuilder res){
+    int n=in.nextInt();
+    long[] a=new long[n];
+    for(int i=0; i<n; i++) a[i]=in.nextLong();
+    
   }
 
     // Fast I/O template
