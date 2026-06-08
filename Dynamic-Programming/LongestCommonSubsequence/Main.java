@@ -28,17 +28,23 @@ public class Main {
     } 
 
     res.append(dp[n][m]+"\n");
+    List<Long> line=new ArrayList<>();
     int i=n, j=m;
     while(i>0 && j>0){
-      if(dp[i-1][j-1]+1==dp[i][j]){
-        res.append(a[i-1]+" ");
+      if(b[j-1]==a[i-1]){
+        line.add(a[i-1]);
         i--;j--;
-        continue;
-      }else if(){
-
+      }else if(dp[i-1][j]>dp[i][j-1]){
+        i--;
+      }else{
+        j--;
       }
     }
-    
+
+    Collections.reverse(line);
+    for(long k:line){
+      res.append(k+" ");
+    }
     System.out.println(res);
   }
 
