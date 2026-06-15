@@ -5,42 +5,37 @@ public class Main {
 
   static FastReader in = new FastReader();
   static PrintWriter out = new PrintWriter(System.out);
+  private static long mod=(long)1e9+7;
+  private static long neg=Long.MIN_VALUE/2;
 
-  private static int mod=(int)1e9+7;
   public static void main(String[] args) throws Exception {
-    int n=in.nextInt(); 
+    StringBuilder res=new StringBuilder();
+    int n=in.nextInt();
     int x=in.nextInt(); 
-    int[] a= new int[n];
-    for(int i = 0; i < n; i++) a[i]=in.nextInt();
-    int[] dp=new int[x+1];
-    //dp[i][j]=no. of ways to constuct sum j such that:
-    // all coins before coin[i] are unusable and all coins 
-    // from i to n-1 are usable
-
-    // for(int i=0;i<=n;i++){
-    //   dp[i][0]=1;
+    long[] a=new long[n];
+    for(int i=0; i<n; i++) a[i]=in.nextLong();
+    
+    // long[] pre=new long[n+1];
+    // for(int i=1;i<=n;i++){
+    //   pre[i]=pre[i-1]+a[i-1];
     // }
-    dp[0]=1;
-    for(int i=n-1;i>=0;i--){
-      int[] ndp=new int[x+1];
-      ndp[0]=1;
-      for(int sum=1;sum<=x;sum++){
-        // int skip=dp[i+1][sum];
-        int skip=dp[sum];
-        int pick=0;
-        if(sum-a[i]>=0){
-          // pick=dp[i][sum-a[i]];
-          pick=ndp[sum-a[i]];
-        }
-        // dp[i][sum]=(skip+pick)%mod;
-        ndp[sum]=(skip+pick)%mod;
+
+    Map<Long, Long> map=new HashMap<>();
+    map.put(0L,1L);
+    long pre=0;
+    long count=0;
+    for(int i=0;i<n;i++){
+      pre+=a[i];
+      if(map.containsKey(pre-x)){
+        count+=map.get(pre-x);
       }
-      dp=ndp;
+      map.put(pre, map.getOrDefault(pre, 0L)+1);
     }
-    System.out.println(dp[x]);
-    out.flush();
+    
+    res.append(count);
+    System.out.println(res);
   }
-    // Fast I/O template
+
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -72,17 +67,14 @@ public class Main {
         }
     }
 
-    // GCD
     static long gcd(long a, long b) {
         return b == 0 ? a : gcd(b, a % b);
     }
 
-    // LCM
     static long lcm(long a, long b) {
         return a/gcd(a,b)*b;
     }
 
-    // Sieve of Eratosthenes
     static boolean[] sieve(int n) {
         boolean[] isPrime = new boolean[n+1];
         Arrays.fill(isPrime, true);
@@ -95,7 +87,6 @@ public class Main {
         return isPrime;
     }
 
-    // Binary Search Template
     static int binarySearch(int[] arr, int target) {
         int l = 0, r = arr.length - 1;
         while (l <= r) {
