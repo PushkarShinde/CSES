@@ -10,16 +10,15 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     int n=in.nextInt(); 
-    StringBuilder res=new StringBuilder();
     
     int[][] a=new int[n][3];
-    PriorityQueue<int[]> pq=new PriorityQueue<>((x,y)->x[0]-y[0]);
+    PriorityQueue<int[]> pq=new PriorityQueue<>(Comparator.comparingInt(x -> x[0]));
     for(int i=0;i<n;i++){
       a[i][0]=in.nextInt();
       a[i][1]=in.nextInt();
       a[i][2]=i;
     }
-    Arrays.sort(a,(x,y)->x[0]-y[0]);
+    Arrays.sort(a,Comparator.comparingInt(x -> x[0]));
 
     int[] result=new int[n];
     int room=0;
@@ -35,10 +34,10 @@ public class Main {
       }
     }
     out.println(room);
-    for(int i:result){
-      res.append(i).append(' ');
+    for (int i = 0; i < n; i++) {
+      out.print(result[i]);
+      out.print(i == n - 1 ? "" : " ");
     }
-    out.println(res);
     out.flush();
   }
 
